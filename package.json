@@ -1,11 +1,11 @@
 {
-  "name": "react-loadable",
-  "version": "5.4.0",
+  "name": "inferno-loadable",
+  "version": "5.4.1",
   "description": "A higher order component for loading components with promises",
   "main": "lib/index.js",
-  "author": "James Kyle <me@thejameskyle.com>",
+  "author": "James Kyle <me@thejameskyle.com> Sergey Kurdin",
   "license": "MIT",
-  "repository": "thejameskyle/react-loadable",
+  "repository": "kurdin/inferno-loadable",
   "files": [
     "babel.js",
     "webpack.js",
@@ -14,8 +14,8 @@
   "scripts": {
     "test": "jest --coverage",
     "build": "babel src -d lib",
-    "start": "yarn build && webpack && babel-node example/server.js",
-    "prepublish": "yarn build"
+    "start": "npm run build && webpack && babel-node example/server.js",
+    "prepublish": "npm run build"
   },
   "dependencies": {
     "prop-types": "^15.5.0"
@@ -28,17 +28,20 @@
     "babel-plugin-transform-async-to-generator": "^6.24.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-assign": "^6.22.0",
+    "babel-plugin-syntax-jsx": "^6.18.0",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1",
+    "babel-plugin-inferno": "^5.0.1",
+    "babel-preset-stage-2": "^6.24.0",
+    "babel-preset-env": "^1.6.0",
     "express": "^4.16.1",
     "flow-bin": "^0.41.0",
     "jest": "^21.2.1",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-test-renderer": "^16.0.0",
-    "webpack": "^3.6.0"
+    "inferno": "^4.0.8",
+    "inferno-create-element": "^4.0.8",
+    "inferno-server": "^4.0.8",
+    "webpack": "^3.12.0"
   },
   "peerDependencies": {
-    "react": "*"
+    "inferno": "*"
   }
 }

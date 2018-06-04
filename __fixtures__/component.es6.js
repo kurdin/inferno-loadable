@@ -1,4 +1,4 @@
-import React from "react";
+import { Component } from 'inferno';
 
 export default class FixtureComponent extends React.Component {
   render() {

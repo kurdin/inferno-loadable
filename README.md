@@ -1,17 +1,15 @@
-![React Loadable](http://thejameskyle.com/img/react-loadable-header.png)
-
-> A higher order component for loading components with dynamic imports.
+> A higher order component for loading components with dynamic imports for splitting Inferno App by loadable components. Works great with SSR.
 
 ## Install
 
 ```sh
-yarn add react-loadable
+npm i inferno-loadable --save
 ```
 
 ## Example
 
 ```js
-import Loadable from 'react-loadable';
+import Loadable from 'inferno-loadable';
 import Loading from './my-loading-component';
 
 const LoadableComponent = Loadable({
@@ -19,7 +17,7 @@ const LoadableComponent = Loadable({
   loading: Loading,
 });
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return <LoadableComponent/>;
   }
@@ -28,58 +26,13 @@ export default class App extends React.Component {
 
 ## Happy Customers:
 
-- ["I'm obsessed with this right now: CRA with React Router v4 and react-loadable. Free code splitting, this is so easy."](https://twitter.com/matzatorski/status/872059865350406144)
-- ["Webpack 2 upgrade & react-loadable; initial load from 1.1mb to 529kb in under 2 hours. Immense."](https://twitter.com/jwbradley87/status/847191118269833216)
+- ["I'm obsessed with this right now: CRA with Inferno Router v4 and inferno-loadable. Free code splitting, this is so easy."](https://twitter.com/matzatorski/status/872059865350406144)
+- ["Webpack 2 upgrade & inferno-loadable; initial load from 1.1mb to 529kb in under 2 hours. Immense."](https://twitter.com/jwbradley87/status/847191118269833216)
 - ["Oh hey - using loadable component I knocked 13K off my initial load. Easy win!"](https://twitter.com/AdamRackis/status/846593080992153600)
 - ["Had a look and its awesome. shaved like 50kb off our main bundle."](https://github.com/quran/quran.com-frontend/pull/701#issuecomment-287908551)
-- ["I've got that server-side rendering + code splitting + PWA ServiceWorker caching setup done 😎 (thanks to react-loadable). Now our frontend is super fast."](https://twitter.com/mxstbr/status/922375575217627136)
-- ["Using react-loadable went from 221.28 KB → 115.76 KB @ main bundle. Fucking awesome and very simple API."](https://twitter.com/evgenyrodionov/status/958821614644269057)
+- ["I've got that server-side rendering + code splitting + PWA ServiceWorker caching setup done 😎 (thanks to inferno-loadable). Now our frontend is super fast."](https://twitter.com/mxstbr/status/922375575217627136)
+- ["Using inferno-loadable went from 221.28 KB → 115.76 KB @ main bundle. Fucking awesome and very simple API."](https://twitter.com/evgenyrodionov/status/958821614644269057)
 
-## Users
-
-- [Analog.Cafe](https://www.analog.cafe)
-- [Atlassian](https://www.atlassian.com/)
-- [Cloudflare](https://www.cloudflare.com)
-- [Curio](https://www.curio.org)
-- [Flyhomes](https://flyhomes.com)
-- [MediaTek MCS-Lite](https://github.com/MCS-Lite)
-- [Snipit](https://snipit.io)
-- [Spectrum.chat](https://spectrum.chat)
-- [Talentpair](https://talentpair.com)
-- [Tinder](https://tinder.com/)
-- [Unsplash](https://unsplash.com/)
-- [Wave](https://waveapps.com/)
-
-> _If your company or project is using React Loadable, please open a PR and add
-> yourself to this list (in alphabetical order please)_
-
-## Also See:
-
-- [`react-loadable-visibility`](https://github.com/stratiformltd/react-loadable-visibility) - Building on top of and keeping the same API as `react-loadable`, this library enables you to load content that is visible on the screen.
-
-<h2>
-  <hr>
-  <hr>
-  <img src="http://thejameskyle.com/img/react-loadable-guide.png" alt="GUIDE">
-  <hr>
-  <hr>
-  <small>Guide</small>
-</h2>
-
-So you've got your React app, you're bundling it with Webpack, and things are
-going smooth. But then one day you notice your app's bundle is getting so big
-that it's slowing things down.
-
-It's time to start code-splitting your app!
-
-![A single giant bundle vs multiple smaller bundles](http://thejameskyle.com/img/react-loadable-split-bundles.png)
-
-Code-splitting is the process of taking one large bundle containing your entire
-app, and splitting them up into multiple smaller bundles which contain separate
-parts of your app.
-
-This might seem difficult to do, but tools like Webpack have this built in, and
-React Loadable is designed to make it super simple.
 
 ### Route-based splitting vs. Component-based splitting
 
@@ -90,7 +43,7 @@ experience on the web.
 
 But we can do better than that.
 
-Using most routing tools for React, a route is simply a component. There's
+Using most routing tools for Inferno, a route is simply a component. There's
 nothing particularly special about them (Sorry Ryan and Michael– you're what's
 special). So what if we optimized for splitting around components instead of
 routes? What would that get us?
@@ -117,10 +70,10 @@ Introducing new code-splitting points in your app should be so easy that you
 don't think twice about it. It should be a matter of changing a few lines of
 code and everything else should be automated.
 
-### Introducing React Loadable
+### Introducing Inferno Loadable
 
-React Loadable is a small library that makes component-centric code splitting
-incredibly easy in React.
+Inferno Loadable is a small library that makes component-centric code splitting
+incredibly easy in Inferno.
 
 `Loadable` is a higher-order component (a function that creates a component)
 which lets you dynamically load any module before rendering it into your app.
@@ -130,7 +83,7 @@ Let's imagine two components, one that imports and renders another.
 ```js
 import Bar from './components/Bar';
 
-class Foo extends React.Component {
+class Foo extends Component {
   render() {
     return <Bar/>;
   }
@@ -144,7 +97,7 @@ Using a **dynamic import** ([a tc39 proposal currently at Stage 3](https://githu
 we can modify our component to load `Bar` asynchronously.
 
 ```js
-class MyComponent extends React.Component {
+class MyComponent extends Component {
   state = {
     Bar: null
   };
@@ -172,7 +125,7 @@ What about when `import()` fails? What about server-side rendering?
 Instead you can use `Loadable` to abstract away the problem.
 
 ```js
-import Loadable from 'react-loadable';
+import Loadable from 'inferno-loadable';
 
 const LoadableBar = Loadable({
   loader: () => import('./components/Bar'),
@@ -181,7 +134,7 @@ const LoadableBar = Loadable({
   }
 });
 
-class MyComponent extends React.Component {
+class MyComponent extends Component {
   render() {
     return <LoadableBar/>;
   }
@@ -195,7 +148,7 @@ When you use `import()` with Webpack 2+, it will
 you with no additional configuration.
 
 This means that you can easily experiment with new code splitting points just
-by switching to `import()` and using React Loadable. Figure out what performs
+by switching to `import()` and using Inferno Loadable. Figure out what performs
 best for your app.
 
 ### Creating a great "Loading..." Component
@@ -365,7 +318,7 @@ const LoadableBar = Loadable({
   loading: Loading,
 });
 
-class MyComponent extends React.Component {
+class MyComponent extends Inferno.Component {
   state = { showBar: false };
 
   onClick = () => {
@@ -394,7 +347,7 @@ class MyComponent extends React.Component {
 <h2>
   <hr>
   <hr>
-  <img src="http://thejameskyle.com/img/react-loadable-ssr.png" alt="SERVER SIDE RENDERING">
+  <img src="http://thejameskyle.com/img/inferno-loadable-ssr.png" alt="SERVER SIDE RENDERING">
   <hr>
   <hr>
   <small>Server-Side Rendering</small>
@@ -403,15 +356,14 @@ class MyComponent extends React.Component {
 When you go to render all these dynamically loaded components, what you'll get
 is a whole bunch of loading screens.
 
-This really sucks, but the good news is that React Loadable is designed to
+This really sucks, but the good news is that Inferno Loadable is designed to
 make server-side rendering work as if nothing is being loaded dynamically.
 
 Here's our starting server using [Express](https://expressjs.com/).
 
 ```js
 import express from 'express';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
+import { renderToStaticMarkup } from 'inferno-server';
 import App from './components/App';
 
 const app = express();
@@ -422,7 +374,7 @@ app.get('/', (req, res) => {
     <html lang="en">
       <head>...</head>
       <body>
-        <div id="app">${ReactDOMServer.renderToString(<App/>)}</div>
+        <div id="app">${renderToStaticMarkup(<App/>)}</div>
         <script src="/dist/main.js"></script>
       </body>
     </html>
@@ -478,15 +430,15 @@ Loadable({
 });
 ```
 
-But don't worry too much about these options. React Loadable includes a
+But don't worry too much about these options. Inferno Loadable includes a
 [Babel plugin](#babel-plugin) to add them for you.
 
-Just add the `react-loadable/babel` plugin to your Babel config:
+Just add the `inferno-loadable/babel` plugin to your Babel config:
 
 ```json
 {
   "plugins": [
-    "react-loadable/babel"
+    "inferno-loadable/babel"
   ]
 }
 ```
@@ -502,12 +454,13 @@ For this, there is [`Loadable.Capture`](#loadablecapture) component which can
 be used to collect all the modules that were rendered.
 
 ```js
-import Loadable from 'react-loadable';
+import Loadable from 'inferno-loadable';
+import { renderToStaticMarkup } from 'inferno-server';
 
 app.get('/', (req, res) => {
   let modules = [];
 
-  let html = ReactDOMServer.renderToString(
+  let html = renderToStaticMarkup(
     <Loadable.Capture report={moduleName => modules.push(moduleName)}>
       <App/>
     </Loadable.Capture>
@@ -527,20 +480,20 @@ server-side, we'll need to map them to the bundles that Webpack created.
 This comes in two parts.
 
 First we need Webpack to tell us which bundles each module lives inside. For
-this there is the [React Loadable Webpack plugin](#webpack-plugin).
+this there is the [Inferno Loadable Webpack plugin](#webpack-plugin).
 
-Import the `ReactLoadablePlugin` from `react-loadable/webpack` and include it
+Import the `InfernoLoadablePlugin` from `inferno-loadable/webpack` and include it
 in your webpack config. Pass it a `filename` for where to store the JSON data
 about our bundles.
 
 ```js
 // webpack.config.js
-import { ReactLoadablePlugin } from 'react-loadable/webpack';
+import { InfernoLoadablePlugin } from 'inferno-loadable/webpack';
 
 export default {
   plugins: [
-    new ReactLoadablePlugin({
-      filename: './dist/react-loadable.json',
+    new InfernoLoadablePlugin({
+      filename: './dist/inferno-loadable.json',
     }),
   ],
 };
@@ -550,17 +503,17 @@ Then we'll go back to our server and use this data to convert our modules to
 bundles.
 
 To convert from modules to bundles, import the [`getBundles`](#getbundles)
-method from `react-loadable/webpack` and the data from Webpack.
+method from `inferno-loadable/webpack` and the data from Webpack.
 
 ```js
-import Loadable from 'react-loadable';
-import { getBundles } from 'react-loadable/webpack'
-import stats from './dist/react-loadable.json';
+import Loadable from 'inferno-loadable';
+import { getBundles } from 'inferno-loadable/webpack'
+import stats from './dist/inferno-loadable.json';
 
 app.get('/', (req, res) => {
   let modules = [];
 
-  let html = ReactDOMServer.renderToString(
+  let html = renderToStaticMarkup(
     <Loadable.Capture report={moduleName => modules.push(moduleName)}>
       <App/>
     </Loadable.Capture>
@@ -623,13 +576,12 @@ which on resolution means that we can hydrate our app.
 
 ```js
 // src/entry.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Loadable from 'react-loadable';
+import { render } from 'inferno';
+import Loadable from 'inferno-loadable';
 import App from './components/App';
 
 Loadable.preloadReady().then(() => {
-  ReactDOM.hydrate(<App/>, document.getElementById('app'));
+  render(<App/>, document.getElementById('app'));
 });
 
 ```
@@ -637,15 +589,6 @@ Loadable.preloadReady().then(() => {
 <h4 align="center">
   Now server-side rendering should work perfectly!
 </h4>
-
-<h2>
-  <hr>
-  <hr>
-  <img src="http://thejameskyle.com/img/react-loadable-api-docs.png" alt="API DOCS">
-  <hr>
-  <hr>
-  <small>API Docs</small>
-</h2>
 
 ### `Loadable`
 
@@ -956,7 +899,7 @@ rendered.
 // During module initialization...
 const LoadableComponent = Loadable({...});
 
-class MyComponent extends React.Component {
+class MyComponent extends Component {
   componentDidMount() {
     // ...
   }
@@ -968,7 +911,7 @@ class MyComponent extends React.Component {
 ```js
 // ...
 
-class MyComponent extends React.Component {
+class MyComponent extends Component {
   componentDidMount() {
     // During app render...
     const LoadableComponent = Loadable({...});
@@ -977,7 +920,7 @@ class MyComponent extends React.Component {
 ```
 
 > **Note:** `Loadable.preloadAll()` will not work if you have more than one
-> copy of `react-loadable` in your app.
+> copy of `inferno-loadable` in your app.
 
 [Read more about preloading on the server](#preloading-all-your-loadable-components-on-the-server).
 
@@ -988,7 +931,7 @@ Check for modules that are already loaded in the browser and call the matching
 
 ```js
 Loadable.preloadReady().then(() => {
-  ReactDOM.hydrate(<App/>, document.getElementById('app'));
+  render(<App/>, document.getElementById('app'));
 });
 ```
 
@@ -999,12 +942,12 @@ Loadable.preloadReady().then(() => {
 A component for reporting which modules were rendered.
 
 Accepts a `report` prop which is called for every `moduleName` that is
-rendered via React Loadable.
+rendered via Inferno Loadable.
 
 ```js
 let modules = [];
 
-let html = ReactDOMServer.renderToString(
+let html = renderToStaticMarkup(
   <Loadable.Capture report={moduleName => modules.push(moduleName)}>
     <App/>
   </Loadable.Capture>
@@ -1025,14 +968,14 @@ you:
 
 ```json
 {
-  "plugins": ["react-loadable/babel"]
+  "plugins": ["inferno-loadable/babel"]
 }
 ```
 
 **Input**
 
 ```js
-import Loadable from 'react-loadable';
+import Loadable from 'inferno-loadable';
 
 const LoadableMyComponent = Loadable({
   loader: () => import('./MyComponent'),
@@ -1049,7 +992,7 @@ const LoadableComponents = Loadable.Map({
 **Output**
 
 ```js
-import Loadable from 'react-loadable';
+import Loadable from 'inferno-loadable';
 import path from 'path';
 
 const LoadableMyComponent = Loadable({
@@ -1073,17 +1016,17 @@ const LoadableComponents = Loadable.Map({
 ## Webpack Plugin
 
 In order to [send the right bundles down](#mapping-loaded-modules-to-bundles)
-when rendering server-side, you'll need the React Loadable Webpack plugin 
+when rendering server-side, you'll need the Inferno Loadable Webpack plugin 
 to provide you with a mapping of modules to bundles.
 
 ```js
 // webpack.config.js
-import { ReactLoadablePlugin } from 'react-loadable/webpack';
+import { InfernoLoadablePlugin } from 'inferno-loadable/webpack';
 
 export default {
   plugins: [
-    new ReactLoadablePlugin({
-      filename: './dist/react-loadable.json',
+    new InfernoLoadablePlugin({
+      filename: './dist/inferno-loadable.json',
     }),
   ],
 };
@@ -1096,25 +1039,17 @@ to bundles.
 
 ### `getBundles`
 
-A method exported by `react-loadable/webpack` for converting modules to
+A method exported by `inferno-loadable/webpack` for converting modules to
 bundles.
 
 ```js
-import { getBundles } from 'react-loadable/webpack';
+import { getBundles } from 'inferno-loadable/webpack';
 
 let bundles = getBundles(stats, modules);
 ```
 
 [Read more about mapping modules to bundles](#mapping-loaded-modules-to-bundles).
 
-<h2>
-  <hr>
-  <hr>
-  <img src="http://thejameskyle.com/img/react-loadable-faq.png" alt="FAQ">
-  <hr>
-  <hr>
-  <small>FAQ</small>
-</h2>
 
 ### How do I avoid repetition?
 
@@ -1123,7 +1058,7 @@ Specifying the same `loading` component or `delay` every time you use
 own Higher-Order Component (HOC) to set default options.
 
 ```js
-import Loadable from 'react-loadable';
+import Loadable from 'inferno-loadable';
 import Loading from './my-loading-component';
 
 export default function MyLoadable(opts) {
@@ -1144,14 +1079,14 @@ const LoadableMyComponent = MyLoadable({
   loader: () => import('./MyComponent'),
 });
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return <LoadableMyComponent/>;
   }
 }
 ```
 
-Unfortunately at the moment using wrapped Loadable breaks [react-loadable/babel](#babel-plugin) so in such case you have to add required properties (`modules`, `webpack`) manually.
+Unfortunately at the moment using wrapped Loadable breaks [inferno-loadable/babel](#babel-plugin) so in such case you have to add required properties (`modules`, `webpack`) manually.
 
 ```js
 import MyLoadable from './MyLoadable';
@@ -1162,7 +1097,7 @@ const LoadableMyComponent = MyLoadable({
   webpack: () => [require.resolveWeak('./MyComponent')],
 });
 
-export default class App extends React.Component {
+export default class App extends Component {
   render() {
     return <LoadableMyComponent/>;
   }

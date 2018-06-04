@@ -1,15 +1,22 @@
 const path = require('path');
-const { ReactLoadablePlugin } = require('./webpack');
-
+const { InfernoLoadablePlugin } = require('./webpack');
+console.log(path.resolve(__dirname, './src/index.js'));
 module.exports = {
   entry: {
-    main: './example/client',
+    main: './example/client'
   },
   output: {
     path: path.join(__dirname, 'example', 'dist'),
     filename: '[name].js',
     chunkFilename: '[name].js',
     publicPath: '/dist/'
+  },
+  resolve: {
+    alias: {
+      'inferno-loadable': path.resolve(__dirname, './src/index.js'),
+      'inferno-loadable/server': './src/server.js',
+      'inferno-loadable/webpack': './src/webpack.js'
+    }
   },
   module: {
     rules: [
@@ -20,30 +27,22 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             babelrc: false,
-            presets: [
-              ['es2015', { modules: false }],
-              'react',
-            ],
-            plugins: [
-              'syntax-dynamic-import',
-              'transform-class-properties',
-              'transform-object-assign',
-              require.resolve('./babel'),
-            ],
+            presets: [['es2015', { modules: false }]],
+            plugins: ['syntax-dynamic-import', 'transform-class-properties', 'transform-object-assign', require.resolve('./babel'), ['inferno', { imports: true }], 'syntax-jsx']
           }
-        },
-      },
-    ],
+        }
+      }
+    ]
   },
   devtool: 'inline-source-map',
   resolve: {
     alias: {
-      'react-loadable': path.resolve(__dirname, 'src'),
-    },
+      'react-loadable': path.resolve(__dirname, 'src')
+    }
   },
   plugins: [
-    new ReactLoadablePlugin({
-      filename:  path.resolve(__dirname, 'example', 'dist', 'react-loadable.json'),
-    }),
+    new InfernoLoadablePlugin({
+      filename: path.resolve(__dirname, 'example', 'dist', 'inferno-loadable.json')
+    })
   ]
 };

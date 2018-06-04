@@ -30,7 +30,7 @@ function buildManifest(compiler, compilation) {
   return manifest;
 }
 
-class ReactLoadablePlugin {
+class InfernoLoadablePlugin {
   constructor(opts = {}) {
     this.filename = opts.filename;
   }
@@ -59,5 +59,5 @@ function getBundles(manifest, moduleIds) {
   }, []);
 }
 
-exports.ReactLoadablePlugin = ReactLoadablePlugin;
+exports.InfernoLoadablePlugin = InfernoLoadablePlugin;
 exports.getBundles = getBundles;

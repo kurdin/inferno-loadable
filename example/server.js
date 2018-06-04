@@ -1,17 +1,16 @@
 import express from 'express';
 import path from 'path';
-import React from 'react';
-import ReactDOMServer from 'react-dom/server';
-import Loadable from 'react-loadable';
-import { getBundles } from 'react-loadable/webpack'
+import Loadable from '../src';
+import { getBundles } from '../src/webpack'
 import App from './components/App';
+import { renderToStaticMarkup } from 'inferno-server';
 
-const stats = require('./dist/react-loadable.json');
+const stats = require('./dist/inferno-loadable.json');
 const app = express();
 
 app.get('/', (req, res) => {
   let modules = [];
-  let html = ReactDOMServer.renderToString(
+  let html = renderToStaticMarkup(
     <Loadable.Capture report={moduleName => modules.push(moduleName)}>
       <App/>
     </Loadable.Capture>

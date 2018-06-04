@@ -1,6 +1,7 @@
 'use strict';
-const React = require('react');
 const PropTypes = require('prop-types');
+const { Component } = require('inferno');
+const { createElement } = require('inferno-create-element');
 
 const ALL_INITIALIZERS = [];
 const READY_INITIALIZERS = [];
@@ -88,12 +89,12 @@ function resolve(obj) {
 }
 
 function render(loaded, props) {
-  return React.createElement(resolve(loaded), props);
+  return createElement(resolve(loaded), props);
 }
 
 function createLoadableComponent(loadFn, options) {
   if (!options.loading) {
-    throw new Error('react-loadable requires a `loading` component')
+    throw new Error('inferno-loadable requires a `loading` component')
   }
 
   let opts = Object.assign({
@@ -125,7 +126,7 @@ function createLoadableComponent(loadFn, options) {
     });
   }
 
-  return class LoadableComponent extends React.Component {
+  return class LoadableComponent extends Component {
     constructor(props) {
       super(props);
       init();
@@ -220,7 +221,7 @@ function createLoadableComponent(loadFn, options) {
 
     render() {
       if (this.state.loading || this.state.error) {
-        return React.createElement(opts.loading, {
+        return createElement(opts.loading, {
           isLoading: this.state.loading,
           pastDelay: this.state.pastDelay,
           timedOut: this.state.timedOut,
@@ -250,7 +251,7 @@ function LoadableMap(opts) {
 
 Loadable.Map = LoadableMap;
 
-class Capture extends React.Component {
+class Capture extends Component {
   static propTypes = {
     report: PropTypes.func.isRequired,
   };
@@ -270,7 +271,9 @@ class Capture extends React.Component {
   }
 
   render() {
-    return React.Children.only(this.props.children);
+    let _children = this.props.children;
+    let children = Array.isArray(_children) ? _children : _children ? [_children] : _children;
+    return children[0];
   }
 }
 
