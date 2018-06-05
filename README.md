@@ -347,7 +347,7 @@ class MyComponent extends Inferno.Component {
 <h2>
   <hr>
   <hr>
-  <img src="http://thejameskyle.com/img/inferno-loadable-ssr.png" alt="SERVER SIDE RENDERING">
+  <img src="http://thejameskyle.com/img/react-loadable-ssr.png" alt="SERVER SIDE RENDERING">
   <hr>
   <hr>
   <small>Server-Side Rendering</small>
