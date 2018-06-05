@@ -1,5 +1,4 @@
 'use strict';
-const PropTypes = require('prop-types');
 const { Component } = require('inferno');
 const { createElement } = require('inferno-create-element');
 
@@ -93,9 +92,6 @@ function render(loaded, props) {
 }
 
 function createLoadableComponent(loadFn, options) {
-  if (!options.loading) {
-    throw new Error('inferno-loadable requires a `loading` component')
-  }
 
   let opts = Object.assign({
     loader: null,
@@ -139,12 +135,6 @@ function createLoadableComponent(loadFn, options) {
         loaded: res.loaded
       };
     }
-
-    static contextTypes = {
-      loadable: PropTypes.shape({
-        report: PropTypes.func.isRequired,
-      }),
-    };
 
     static preload() {
       return init();
@@ -252,15 +242,6 @@ function LoadableMap(opts) {
 Loadable.Map = LoadableMap;
 
 class Capture extends Component {
-  static propTypes = {
-    report: PropTypes.func.isRequired,
-  };
-
-  static childContextTypes = {
-    loadable: PropTypes.shape({
-      report: PropTypes.func.isRequired,
-    }).isRequired,
-  };
 
   getChildContext() {
     return {
